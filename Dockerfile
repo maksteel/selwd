@@ -25,4 +25,3 @@ ADD vid.py ${wdir}
 ENV DISPLAY :10
 WORKDIR ${wdir} 
 CMD (service xvfb_daemon start ; python vid.py)
-#CMD (while true; do sleep 1s; done)
