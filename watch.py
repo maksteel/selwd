@@ -17,12 +17,15 @@ class WatchYoutube(object):
         :param video_id: Youtube Video Id
         """
         if download_addon == True:
-            urllib.urlretrieve("https://addons.mozilla.org/firefox/downloads/file/338640/one_click_proxy_ip-1.0.0-fx-windows.xpi", "one_click_proxy_ip-1.0.0-fx-windows.xpi")
-        
+            urllib.urlretrieve("https://addons.mozilla.org/firefox/downloads/file/668407/anonymox-3.2-fx.xpi","anonymox-3.2-fx.xpi")
         self.interval = interval
         profile = webdriver.FirefoxProfile()
-        profile.add_extension(extension='one_click_proxy_ip-1.0.0-fx-windows.xpi')
+        profile.add_extension(extension='anonymox-3.2-fx.xpi')
         self.driver = webdriver.Firefox(firefox_profile=profile)
+	
+	# wait for addon to load
+	time.sleep(10)
+
         self.video_id = video_id
         self.driver.get("https://www.youtube.com/watch?v=" + self.video_id)
         self.player_status = 1
@@ -37,6 +40,7 @@ class WatchYoutube(object):
             self.player_status = self.driver.execute_script("return document.getElementById('movie_player').getPlayerState()")
             if self.player_status == 0:
                 self.driver.close()
+                self.driver.quit() # close all windows including the ones that addon opens
             sys.stdout.write("\r" + str(datetime.timedelta(seconds=self.player_time)))
             sys.stdout.flush()   
             time.sleep(self.interval)

@@ -16,6 +16,7 @@ ENV wdir /root/selenium_wd_tests
 RUN mkdir -p ${wdir} 
 ADD watch.py ${wdir}
 ADD vid.py ${wdir}
+ADD anonymox-3.2-fx.xpi ${wdir}
 
 ENV DISPLAY :10
 WORKDIR ${wdir} 
