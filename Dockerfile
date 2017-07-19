@@ -7,15 +7,10 @@ RUN pip install selenium
 RUN pip install urllib
 ADD geckodriver /usr/local/bin
 
-#ADD xvfb.service /etc/systemd/system/xvfb.service
-#RUN systemctl enable /etc/systemd/system/xvfb.service
-#RUN service xvfb start
-
 RUN apt-get install -y daemon
 ADD xvfb_daemon /etc/init.d/xvfb_daemon
 RUN chmod +x /etc/init.d/xvfb_daemon
 RUN update-rc.d xvfb_daemon defaults
-#RUN service xvfb_daemon start
 
 ENV wdir /root/selenium_wd_tests
 RUN mkdir -p ${wdir} 
@@ -24,4 +19,4 @@ ADD vid.py ${wdir}
 
 ENV DISPLAY :10
 WORKDIR ${wdir} 
-CMD (service xvfb_daemon start ; python vid.py)
+CMD (service xvfb_daemon start ; while true; do python vid.py; done;)
