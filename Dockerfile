@@ -20,4 +20,5 @@ ADD anonymox-3.2-fx.xpi ${wdir}
 
 ENV DISPLAY :10
 WORKDIR ${wdir} 
-CMD (service xvfb_daemon start ; while true; do python vid.py; done;)
+ARG video_id=GSAfPHun-9I
+CMD (service xvfb_daemon start ; while true; do python vid.py $video_id; done;)
