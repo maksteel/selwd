@@ -23,4 +23,5 @@ ENV DISPLAY :10
 WORKDIR ${wdir} 
 ARG config_file=sample_config.ini
 ADD ${config_file} config.ini
+ADD watch_playlist.py ${wdir}
 CMD (service xvfb_daemon start ; while true; do python watch_playlist.py; done;)
