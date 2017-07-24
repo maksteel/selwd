@@ -25,5 +25,4 @@ WORKDIR ${wdir}
 ARG config_file=sample_config.ini
 ADD ${config_file} config.ini
 ADD watch_playlist.py ${wdir}
-ENV output `echo $(date -I)-$(rand)`
-CMD (service xvfb_daemon start ; while true; do python -u watch_playlist.py  > results-${output}.txt 2> error-${output}.txt;  done;)
+CMD (service xvfb_daemon start ;output=`echo $(date -I)-$(rand)`; while true; do python -u watch_playlist.py  > results-$output.txt 2> error-$output.txt;  done;)
