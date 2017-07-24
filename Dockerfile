@@ -19,9 +19,11 @@ ADD vid.py ${wdir}
 ADD anonymox-3.2-fx.xpi ${wdir}
 
 RUN pip install configparser
+RUN apt-get install rand
 ENV DISPLAY :10
 WORKDIR ${wdir} 
 ARG config_file=sample_config.ini
 ADD ${config_file} config.ini
 ADD watch_playlist.py ${wdir}
-CMD (service xvfb_daemon start ; while true; do python watch_playlist.py; done;)
+ENV output `echo $(date -I)-$(rand)`
+CMD (service xvfb_daemon start ; while true; do python -u watch_playlist.py  > results-${output}.txt 2> error-${output}.txt;  done;)
