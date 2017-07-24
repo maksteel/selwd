@@ -18,7 +18,9 @@ ADD watch.py ${wdir}
 ADD vid.py ${wdir}
 ADD anonymox-3.2-fx.xpi ${wdir}
 
+RUN pip install configparser
 ENV DISPLAY :10
 WORKDIR ${wdir} 
-ARG video_id=GSAfPHun-9I
-CMD (service xvfb_daemon start ; while true; do python vid.py $video_id; done;)
+ARG config_file=sample_config.ini
+ADD ${config_file} config.ini
+CMD (service xvfb_daemon start ; while true; do python watch_playlist.py; done;)
